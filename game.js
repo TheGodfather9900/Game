@@ -1,61 +1,78 @@
-function getRndInt(min, max) {
-    return Math.floor(Math.random() * (max - min)) + min;
+let userScore = 0;
+let compScore = 0;
+const userScore_span = document.getElementById("user-score");
+const compScore_span = document.getElementById("comp-score");
+const scoreBoard_div = document.querySelector(".scoreboard");
+const result_div = document.querySelector(".result");
+const rock_div = document.getElementById("r");
+const paper_div = document.getElementById("p");
+const scissor_div = document.getElementById("s");
+
+function convertToWord(letter){
+    if(letter==='r') return "Rock";
+    if(letter==='p') return "Paper";
+    return "Scissors";
 }
 
+function win(user,computer){
+    userScore++;
+    userScore_span.innerHTML=userScore;
+    compScore_span.innerHTML=compScore;
+    result_div.innerHTML=convertToWord(user) + " beats" +convertToWord(computer) + " .YOU WIN!";
+}
 
-function game() {
-    let w = 0;
-    let l = 0;
-    let p = parseInt(prompt("Enter how many rounds you want to play"));
-    for (i = 0; i < p; i++) {
+function lose(user,computer){
+    compScore++;
+    userScore_span.innerHTML=userScore;
+    compScore_span.innerHTML=compScore;
+    result_div.innerHTML=convertToWord(computer) + " beats" +convertToWord(user) + " .YOU LOSE!";
+}
 
-        let a = prompt("your choice: ");
-        let b = a.toUpperCase();
-        let n = 0;
-        if (b == "ROCK") {
-            n = 1;
-        }
-        else if (b = "PAPER") {
-            n = 2;
-        }
-        else {
-            n = 3
-        }
-        let x = getRndInt(1, 4);
-        /*1=rock
-        2=paper
-        3=scissors
-        */
+function draw(user,computer){
+    userScore_span.innerHTML=userScore;
+    compScore_span.innerHTML=compScore;
+    result_div.innerHTML="Same selection. IT IS A DRAW";
+}
 
-        if (x == n) {
-            console.log("it is a draw");
-        }
-        else {
-            if (x == 1 && n == 2) {
-                console.log("Paper beats Rock, You WIN");
-                w++;
-            }
-            if (x == 1 && n == 3) {
-                console.log("Rock beats Scissors, You LOSE");
-                l++;
-            }
-            if (x == 2 && n == 1) {
-                console.log("Paper beats Rock, You LOSE");
-                l++;
-            }
-            if (x == 2 && n == 3) {
-                console.log("Scissors beat Paper, You WIN");
-                w++
-            }
-            if (x == 3 && n == 1) {
-                console.log("Rock beats Scissors, You WIN");
-                w++;
-            }
-            if (x == 3 && n == 2) {
-                console.log("Scissors beat Paper, You LOSE");
-                l++;
-            }
-        }
+function getComputerChoice() {
+    const choices = ['r', 'p', 's'];
+    const randNum = Math.floor(Math.random() * 3);
+    return choices[randNum];
+}
+
+function game(userChoice) {
+    const compChoice = getComputerChoice();
+    switch (userChoice + compChoice) {
+        case "rs":
+        case "pr":
+        case "sp":
+            win(userChoice,compChoice);
+            break;
+        case "rp":
+        case "ps":
+        case "sr":
+            lose(userChoice,compChoice);
+            break;
+        case "rr":
+        case "pp":
+        case "ss":
+            draw(userChoice,compChoice);
+            break;
     }
-    console.log("Final score is " + w + " wins and " + l + " Losses")
 }
+
+function main() {
+    rock_div.addEventListener('click', function () {
+        game("r");
+    })
+
+    paper_div.addEventListener('click', function () {
+        game("p");
+    })
+
+    scissor_div.addEventListener('click', function () {
+        game("s");
+    })
+}
+
+main();
