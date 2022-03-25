@@ -1,12 +1,40 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Game</title>
+    <title>RPS-Game</title>
+    <link rel="stylesheet" href="style.css">
 </head>
+
 <body>
+    <header>
+        <h1>Rock Paper Scissors Game</h1>
+    </header>
+    <div class="scoreboard">
+        <div id="user-label" class="badge">User</div>
+        <div id="comp-label" class="badge">Comp</div>
+        <span id="user-score">0</span><span>:</span><span id="comp-score">0</span>
+    </div>
+    <div>
+        <div class="result">Paper beats Rock, YOU WIN!</div>
+    </div>
+    <div class="choices">
+        <div class="choice" id="r">
+            <img src="./img/boxer-1294352_960_720.png" alt="Rock">
+        </div>
+        <div class="choice" id="p">
+            <img src="./img/hand-307106__340.webp" alt="Paper">
+        </div>
+        <div class="choice" id="s">
+            <img src="./img/scissors-147115__340.png" alt="scissors">
+        </div>
+    </div>
+
+    <p id="action-msg">Make your move</p>
     <script src="./game.js"></script>
 </body>
+
 </html>
